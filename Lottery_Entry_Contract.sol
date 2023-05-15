@@ -5,7 +5,7 @@ pragma solidity ^0.8.0;
 contract Lottery {
     address[] Entry_address;
     uint public ticketPrice = 50 * 10 ** 18;
-    uint public maxEntries = 2;
+    uint public maxEntries = 100;
     bool public entryClosed = false;
     
     mapping(address => bool) public entryExists;
