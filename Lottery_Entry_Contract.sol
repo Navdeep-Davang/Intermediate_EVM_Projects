@@ -9,6 +9,7 @@ contract Lottery {
     bool public entryClosed = false;
     
     mapping(address => bool) public entryExists;
+    mapping(address => uint) public entryFund;
     
     function enterLottery(uint age, uint ticket_price_USDC, address entry_addr) public payable {
         assert(entry_addr.balance > ticketPrice);
@@ -23,9 +24,9 @@ contract Lottery {
         }
         require(!entryExists[msg.sender], "You have already entered the lottery");
        
-       Entry_address.push(entry_addr);
+        Entry_address.push(entry_addr);
         entryExists[entry_addr] = true;
-        
+        entryFund[entry_addr] = ticket_price_USDC;
        
     }
 }
