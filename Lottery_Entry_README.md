@@ -53,11 +53,11 @@ After that we define a function enterlottery with three input parameters 'age', 
 function enterLottery(uint age, uint ticket_price_USDC, address entry_addr) public payable {}
  ``` 
  
- In the enterLottery function we use 'assert' funtion' to check whether contract has enough funds for ticket. We pass the condition wheather the contract has balance greater than ticketPrice. If the codition is true our code is processed futher otherwise it is terminated.
+ In the enterLottery function we use 'assert' funtion' to check whether user entering the lottery has enough funds for ticket. We pass the condition wheather the user has balance greater than ticketPrice. If the codition is true our code is processed futher otherwise it is terminated. This will save us gas as further code is not executed.
  ```javascript
- assert(address(this).balance >= ticketPrice);     // make sure the contract has enough funds for a ticket
+ assert(entry_addr.balance > ticketPrice);     // make sure the person entering the lottery has enough funds for a ticket
  ```
- 
+
 After this we use 'required' function to check whether the age of individual is 18 or above. First paramerter in 'required' is the condition which need to be satisfied for further code to proceed. If the condition is not satisfied then program is terminated and second parameter is thrown in the output. 
  ```javascript
  require(age >= 18, "You must be at least 18 years old to enter the lottery");      // check user age 
