@@ -5,8 +5,6 @@ import "./Lottery_Entry_Contract.sol";
 
 contract Lottery_Status is Lottery {
 
-   
-
     function Userfund_wei () public view returns (uint) {
 
         require(entryExists[msg.sender], "You have not entered in Lottery" );
