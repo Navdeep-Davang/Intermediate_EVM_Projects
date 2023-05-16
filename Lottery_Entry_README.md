@@ -45,8 +45,9 @@ In this Lottery contract we declared one array which takes address(Entry_address
 ```javascript
  // mapping variable here
    mapping(address => bool) public entryExists;
+   mapping(address => uint) public entryFund;
  ```   
-After that we created mapping of address to boolian value(returns Either Ture or False). 
+After that we created mapping of address to boolian value(returns Either Ture or False) and mapping of address to ticket value with which user enters. 
 
 After that we define a function enterlottery with three input parameters 'age', 'ticket_price_USDC', and 'entry_addr'. This function is of type 'payable' means it can receive payments. 
 ```javascript
@@ -77,10 +78,11 @@ Also we check whether we have reached maximum limit of enties or not, using 'rev
         }
 ```
 
-If all conditions are satisfied and there isn't an issue, we push uesrs address in our 'Entry_address' array and pass boolian value in entryExists mapping eqaul to true. This will indicate that user has already entered the lottery.
+If all conditions are satisfied and there isn't an issue, we push uesrs address in our 'Entry_address' array and pass boolian value in entryExists mapping eqaul to true. This will indicate that user has already entered the lottery. We update another mapping i.e.entryFund which will be useful to use in our Lottery_Status_Contract solidity project.
 ```javascript
    Entry_address.push(entry_addr);        // add the user to the list of Entry_address
    entryExists[entry_addr] = true;        // mark the user as having entered
+   entryFund[entry_addr] = ticket_price_USDC;      // mark the user to ticket value with which he has entered
 ```
 
 To compile the code, click on the "Solidity Compiler" tab in the left-hand sidebar. Make sure the "Compiler" option is set to "0.8.4" (or another compatible version), and then click on the "Compile Lottery_Entry_Contract.sol" button.
