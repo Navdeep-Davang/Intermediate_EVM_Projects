@@ -92,12 +92,84 @@ Once the code is compiled, you can deploy the contract by clicking on the "Deplo
 Once the contract is deployed, user can interact with its functions.
 
 
+
+
+
+
+
+# Lottery Status Contract
+
+
+This smart contract is a part of a Lottery system that allows users to enter the lottery, check their entry, and withdraw their funds from the lottery. 
+
+
+## Prerequisites
+
+- This code requires the use of Solidity version ^0.8.0. 
+- This code relies on the `Lottery_Entry_Contract.sol` contract. 
+
+## Installation
+
+To use this code, you can import the `Lottery_Status.sol` file into your Solidity project. 
+
+## Usage
+
+### Userfund_wei
+```javascript
+function Userfund_wei () public view returns (uint)                                 // returns the amound which user has funded
+    {
+        require(entryExists[msg.sender], "You have not entered in Lottery" );
+        uint ticket_price_USDC = entryFund[msg.sender];
+        uint ticket_price_wei= ticket_price_USDC * 10 ** 18;
+        return ticket_price_wei;
+    }
+```
+The `Userfund_wei()` function is a view function that returns the amount of wei a user has contributed to the lottery. 
+
+
+### withdrawLotteryFunds
+```javascript
+function withdrawLotteryFunds() public payable 
+    {
+        require(entryExists[msg.sender], "You have not entered the lottery");          //Checks whether person withdrawing is part of lottery
+        require(entryFund[msg.sender] > 0, "You have already withdrawn your funds");   //checks whether user has already withdrawn his fund or not
+        uint withdrawAmount = entryFund[msg.sender] * (99) * 10 ** 16;
+        entryFund[msg.sender] = 0;
+        payable(msg.sender).transfer(withdrawAmount);
+    }
+```
+The `withdrawLotteryFunds()` function allows a user to withdraw their funds from the lottery if they have already entered and have not yet withdrawn their funds. As leaving lottery before completion user has to pay 1% of their funds as penalty so the function only transfers 99% of the user's entry funds to their account. 
+
+### Functionality
+
+This contract extends the `Lottery_Entry_Contract` contract, which includes the core functionality of the lottery system. 
+
+The `entryExists` mapping and `entryFund` mapping are used to track each user's entry and the amount they have contributed to the lottery. 
+
+Before a user can withdraw their funds from the lottery, they must have entered and not yet withdrawn their funds. 
+
+
+
 ## Authors
 
 Navdeep Davang  
 
 
+
 ## License
-This project is licensed under the MIT License
+
+This code is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+
+
+
+
+
+
+
+
+
+
+
+
 
 
